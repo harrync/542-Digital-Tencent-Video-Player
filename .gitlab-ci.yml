@@ -1,0 +1,59 @@
+variables:
+  # From the docs: https://docs.gitlab.com/ee/ci/yaml/#git-strategy
+  #   „fetch is faster as it re-uses the project workspace  s(falling back
+  #   to clone if it doesn't exist). git clean is used to undo any changes
+  #   made by the last job, and git fetch is used to retrieve commits
+  #   made since the last job ran.“
+  GIT_STRATEGY: fetch
+  NODE_IMAGE: node:18.16.0
+
+stages:
+  - install
+  - lint
+  - build
+  - version
+  - publish
+
+#########
+# JS #
+#########
+install:
+  stage: install
+  image: $NODE_IMAGE
+  script:
+    - npm config set ignore-scripts false
+    - npm install
+lint:
+  stage: lint
+  image: $NODE_IMAGE
+  script:
+    - npm ci --cache .npm --prefer-offline --include=dev
+    - npm run lint
+build:
+  stage: build
+  image: $NODE_IMAGE
+  script:
+    - npm ci --cache .npm --prefer-offline --include=dev
+    - npm run build
+version:
+  stage: version
+  image: $NODE_IMAGE
+  script:
+    - npm install --save-dev @semantic-release/gitlab @semantic-release/changelog @semantic-release/git
+    - npx semantic-release
+  rules:
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
+publish:
+  stage: publish
+  image: $NODE_IMAGE
+  script:
+    - npm publish --access=public
+  rules:
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: "$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS"
+      when: never
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"

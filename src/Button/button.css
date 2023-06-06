@@ -1,0 +1,21 @@
+/* Button.css */
+.vjs-button-icon > .custom-button {
+  all: unset;
+  overflow: hidden;
+  position: relative;
+  height: 51px;
+  width: 91px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  font-size: 0;
+  transition: background-color 100ms linear;
+  background-color: #bc871d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-button:hover {
+  background-color: rgba(188, 135, 29, 0.85);
+}

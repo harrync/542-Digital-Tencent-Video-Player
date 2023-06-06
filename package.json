@@ -1,0 +1,62 @@
+{
+  "name": "@542.digital/tencent-video-player",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "version": "1.0.7",
+  "exports": {
+    ".": {
+      "import": "./dist/main.js",
+      "require": "./dist/main.cjs.js"
+    },
+    "./dist/styles.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
+    }
+  },
+  "main": "./dist/main.cjs.js",
+  "module": "./dist/main.js",
+  "typings": "./dist/main.d.ts",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && vite build",
+    "build:watch": "tsc && vite build --watch",
+    "dev": "vite",
+    "prepare": "husky install",
+    "prepare-commit-msg": "npx commitlint --edit ${1}",
+    "lint": "prettier . --check --ignore-unknown",
+    "lint:fix": "prettier . --write --ignore-unknown"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "17.6.3",
+    "@commitlint/config-conventional": "17.6.3",
+    "@rollup/plugin-typescript": "11.1.1",
+    "@semantic-release/changelog": "6.0.3",
+    "@semantic-release/git": "10.0.1",
+    "@semantic-release/gitlab": "12.0.1",
+    "@semantic-release/npm": "10.0.3",
+    "@types/node": "20.2.0",
+    "husky": "^8.0.0",
+    "lint-staged": "13.2.2",
+    "prettier": "2.8.8",
+    "rollup-plugin-typescript-paths": "1.4.0",
+    "semantic-release": "21.0.2",
+    "tslib": "2.5.1",
+    "typescript": "5.0.4",
+    "vite": "4.3.8",
+    "vite-plugin-progress": "0.0.7"
+  },
+  "lint-staged": {
+    "**/*": "prettier . --write --ignore-unknown"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "tag": "latest"
+  },
+  "dependencies": {
+    "commitlint": "17.6.5"
+  }
+}

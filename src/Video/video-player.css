@@ -1,0 +1,16 @@
+.vjs-progress-control .vjs-progress-holder {
+  background-color: #222;
+}
+
+.vjs-progress-control .vjs-load-progress > div {
+  background-color: #bc871d;
+  opacity: 0.2;
+}
+
+.vjs-progress-control .vjs-mouse-display {
+  background-color: #bc871d;
+}
+
+.vjs-progress-control .vjs-play-progress {
+  background-color: #bc871d;
+}
